@@ -1,0 +1,75 @@
+#include <stdio.h>
+#include <limits.h>
+
+void modifyArray(int arr[], int n) {
+    if (n < 2) {
+        printf("Array should have at least two elements.\n");
+        return;
+    }
+
+    int smallest = arr[0], secondSmallest = INT_MAX;
+    int largest = arr[0], secondLargest = INT_MIN;
+
+    // Find the second smallest and second largest numbers in the array
+    for (int i = 1; i < n; i++) {
+        if (arr[i] < smallest) {
+            secondSmallest = smallest;
+            smallest = arr[i];
+        } else if (arr[i] < secondSmallest) {
+            secondSmallest = arr[i];
+        }
+
+        if (arr[i] > largest) {
+            secondLargest = largest;
+            largest = arr[i];
+        } else if (arr[i] > secondLargest) {
+            secondLargest = arr[i];
+        }
+    }
+
+    // Modify the second smallest number
+    if (secondSmallest % 2 == 0) {
+        secondSmallest += 2;
+    } else {
+        secondSmallest -= 2;
+    }
+
+    // Modify the second largest number
+    if (secondLargest % 2 == 0) {
+        secondLargest *= 2;
+    } else {
+        secondLargest /= 2;
+    }
+
+    // Print the modified array
+    printf("Modified Array: ");
+    for (int i = 0; i < n; i++) {
+        if (arr[i] == secondSmallest) {
+            printf("%d ", secondSmallest);
+        } else if (arr[i] == secondLargest) {
+            printf("%d ", secondLargest);
+        } else {
+            printf("%d ", arr[i]);
+        }
+    }
+    printf("\n");
+}
+
+int main() {
+    int arr[100], n;
+
+    // Prompt the user to enter the number of elements in the array
+    printf("Enter the number of elements in the array: ");
+    scanf("%d", &n);
+
+    // Prompt the user to enter the elements of the array
+    printf("Enter %d elements:\n", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    // Call the modifyArray function to find and modify the array
+    modifyArray(arr, n);
+
+    return 0;
+}
